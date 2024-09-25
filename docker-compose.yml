@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  postgres-livro:
+    image: postgres
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: adm
+      POSTGRES_PASSWORD: qwe123
+      POSTGRES_DB: db-livro
+    ports:
+      - 5433:5432
