@@ -1,70 +1,69 @@
-# ms-livro
+# Plano de Teste
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+## 1. Ferramentas
+As seguintes ferramentas serão utilizadas para o desenvolvimento e execução dos testes e verificação de qualidade:
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+- **JUnit**: Framework para criação de testes unitários em Java (https://junit.org/junit5/).
+- **Mockito**: Biblioteca para criação de mocks e simulações em testes unitários (https://site.mockito.org/).
+- **Rest Assured**: Biblioteca para testes de APIs RESTful em Java (https://rest-assured.io/).
+- **SonarLint**: Ferramenta de análise estática para detectar problemas no código durante o desenvolvimento.
+- **SonarCloud**: Serviço para integração contínua e análise de qualidade do código (https://sonarcloud.io/login).
 
-## Running the application in dev mode
+## 2. Procedimentos
 
-You can run your application in dev mode that enables live coding using:
+### 2.1 Commit
+- Realize commits frequentes e bem documentados, descrevendo as alterações e testes adicionados.
+- Exemplo de comando: `git commit -m "Implementação de testes unitários para [funcionalidade]"`
 
-```shell script
-./mvnw compile quarkus:dev
-```
+### 2.2 Pull Request
+- Crie um Pull Request para cada conjunto de alterações.
+- Inclua uma descrição detalhada do que foi alterado, testes adicionados e a verificação de qualidade feita com SonarLint.
+- Todos os PRs devem ser revisados por pelo menos um membro da equipe antes de serem mesclados.
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+### 2.3 Revisão de Código
+- Os PRs devem passar pela revisão de código, verificando especialmente a cobertura de testes e conformidade com os padrões de qualidade.
+- Valide o uso do SonarLint e a análise do SonarCloud para manter a qualidade do código.
 
-## Packaging and running the application
+## 3. Requisitos, Restrições e Configurações para o Teste
 
-The application can be packaged using:
+### 3.1 Requisitos
+- **Cobertura de Código**: A cobertura dos testes unitários e de integração deve ser de no mínimo 80%.
+- **Mocks**: Utilize Mockito para mockar dependências internas durante os testes unitários.
+- **APIs REST**: Utilize Rest Assured para validar as respostas e o comportamento das APIs RESTful da aplicação.
 
-```shell script
-./mvnw package
-```
+### 3.2 Restrições
+- Todos os testes devem ser executados em um ambiente de desenvolvimento ou teste, separado do ambiente de produção.
+- O SonarCloud deve ser configurado como requisito para integração contínua.
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+### 3.3 Configurações
+- **SonarLint**: Configure o SonarLint para análise em tempo real no ambiente de desenvolvimento.
+- **SonarCloud**: Configure o SonarCloud como parte do pipeline de CI/CD para análise de qualidade do código em cada PR e push.
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+## 4. Matriz de Funcionalidades versus Testes
 
-If you want to build an _über-jar_, execute the following command:
+| Funcionalidade            | Teste Unitário | Teste de Integração (API) | Mock com Mockito | 
+|---------------------------|----------------|---------------------------|------------------|
+| Cadastro de livros        |      Sim       |            Não            |       Não        | 
+| Busca de livros           |      Sim       |            Não            |       Não        | 
+| Exclusão de livros        |      Não       |            Não            |       Não        | 
+| Edição de livros          |      Não       |            Não            |       Não        | 
 
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
+## 5. Verificação Estática
+Implemente a verificação estática do código utilizando:
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+- **SonarLint**: Ferramenta local para verificar problemas de qualidade no código durante o desenvolvimento.
+- **SonarCloud**: Configure o SonarCloud no pipeline de CI/CD para verificar a qualidade e cobertura de código em todos os commits e PRs.
 
-## Creating a native executable
+## 6. Testes de API com Rest Assured
+Utilize o **Rest Assured** para implementar testes de API, verificando:
 
-You can create a native executable using:
+- **Respostas de Status**: Assegure-se de que os endpoints estão respondendo com os status HTTP corretos (ex: 200, 404, 500).
+- **Validação de Conteúdo**: Verifique se o conteúdo das respostas está de acordo com os requisitos.
+- **Cabeçalhos e Autenticação**: Valide cabeçalhos essenciais e autenticação das requisições.
 
-```shell script
-./mvnw package -Dnative
-```
+## 7. Integração Contínua
+- Configure um ambiente de integração contínua (por exemplo, GitHub Actions) para rodar os testes e verificar a análise do SonarCloud em cada push e PR.
+- **SonarCloud**: Configure o SonarCloud para gerar relatórios de análise de qualidade e cobertura de código.
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/ms-livro-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Related Guides
-
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
-
-## Provided Code
-
-### Hibernate ORM
-
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-[Related Hibernate with Panache section...](https://quarkus.io/guides/hibernate-orm-panache)
+---
 
