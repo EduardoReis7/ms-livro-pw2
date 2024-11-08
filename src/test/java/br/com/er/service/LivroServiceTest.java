@@ -1,8 +1,12 @@
 package br.com.er.service;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -14,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import br.com.er.exception.NaoEncontradoException;
 import br.com.er.model.Livro;
 import br.com.er.repository.LivroRepository;
 import br.com.er.utils.TestUtils;
@@ -54,5 +59,44 @@ class LivroServiceTest {
 
         assertNotNull(livros);
         assertEquals(expected, livros);
+    }
+
+    @Test
+    void shouldReturnTrueWhenALivroIsSearched() {
+
+        Livro expected = TestUtils.createLivroEntity();
+
+        when(repository.findById(anyLong())).thenReturn(expected);
+
+        Livro livro = service.buscar(1L);
+
+        assertNotNull(livro);
+        assertEquals(expected, livro);
+    }
+
+    @Test
+    void shouldReturnTrueWhenALivroIsEdited() {
+
+        Livro original = TestUtils.createLivroEntity();
+        Livro updatedLivro = TestUtils.createLivroEntity();
+
+        updatedLivro.setAutor("New author");
+
+        when(repository.findById(anyLong())).thenReturn(original);
+
+        Livro newLivro = service.editar(1L, updatedLivro);
+
+        assertNotNull(newLivro);
+        assertEquals(updatedLivro, newLivro);
+    }
+
+    @Test
+    void shouldReturnTrueWhenALivroIsDeleted() {
+
+        doNothing().when(repository).excluir(anyLong());
+
+        service.excluir(1L);
+
+        assertThrows(NaoEncontradoException.class, () -> this.service.buscar(1L));
     }
 }
