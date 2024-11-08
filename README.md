@@ -46,7 +46,7 @@ As seguintes ferramentas serão utilizadas para o desenvolvimento e execução d
 | Cadastro de livros        |      Sim       |            Não            |       Não        | 
 | Busca de livros           |      Sim       |            Não            |       Não        | 
 | Exclusão de livros        |      Não       |            Não            |       Não        | 
-| Edição de livrosT         |      Não       |            Não            |       Não        | 
+| Edição de livros          |      Não       |            Não            |       Não        | 
 
 ## 5. Verificação Estática
 Implemente a verificação estática do código utilizando:
