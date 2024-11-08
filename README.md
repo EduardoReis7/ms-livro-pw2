@@ -43,10 +43,10 @@ As seguintes ferramentas serão utilizadas para o desenvolvimento e execução d
 
 | Funcionalidade            | Teste Unitário | Teste de Integração (API) | Mock com Mockito | 
 |---------------------------|----------------|---------------------------|------------------|
-| Cadastro de livros        | Sim            | Não                       | Não              | 
-| Busca de livros           | Sim            | Não                       | Não              | 
-| Exclusão de livros        | Não            | Não                       | Não              | 
-| Edição de livrosT         | Não            | Não                       | Não              | 
+| Cadastro de livros        |      Sim       |            Não            |       Não        | 
+| Busca de livros           |      Sim       |            Não            |       Não        | 
+| Exclusão de livros        |      Não       |            Não            |       Não        | 
+| Edição de livrosT         |      Não       |            Não            |       Não        | 
 
 ## 5. Verificação Estática
 Implemente a verificação estática do código utilizando:
