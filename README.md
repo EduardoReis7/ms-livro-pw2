@@ -1,6 +1,4 @@
 # Plano de Teste
-
-![Descrição do GIF](https://media.giphy.com/media/ynRrAHj5SWAu8RA002/giphy.gif)
 ## 1. Ferramentas
 As seguintes ferramentas serão utilizadas para o desenvolvimento e execução dos testes e verificação de qualidade:
 
@@ -68,3 +66,6 @@ Utilize o **Rest Assured** para implementar testes de API, verificando:
 
 ---
 
+## Você fez todos os testes???
+
+![Descrição do GIF](https://media.giphy.com/media/ynRrAHj5SWAu8RA002/giphy.gif)
