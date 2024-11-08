@@ -41,12 +41,12 @@ As seguintes ferramentas serão utilizadas para o desenvolvimento e execução d
 
 ## 4. Matriz de Funcionalidades versus Testes
 
-| Funcionalidade            | Teste Unitário | Teste de Integração (API) | Mock com Mockito | Observações                                  |
-|---------------------------|----------------|---------------------------|------------------|----------------------------------------------|
-| Autenticação               | Sim           | Sim                       | Sim              | Validar login e autenticação                 |
-| Cadastro de Usuários       | Sim           | Sim                       | Sim              | Teste de API para criação de usuários        |
-| Processamento de Dados     | Sim           | Não                       | Sim              | Testes locais dos métodos                    |
-| Operações de API REST      | Não           | Sim                       | Não              | Validar endpoints principais com Rest Assured|
+| Funcionalidade            | Teste Unitário | Teste de Integração (API) | Mock com Mockito | 
+|---------------------------|----------------|---------------------------|------------------|
+| Cadastro de livros        | Não            | Não                       | Não              | 
+| Busca de livros           | Não            | Não                       | Não              | 
+| Exclusão de livros        | Não            | Não                       | Não              | 
+| Edição de livrosT         | Não            | Não                       | Não              | 
 
 ## 5. Verificação Estática
 Implemente a verificação estática do código utilizando:
