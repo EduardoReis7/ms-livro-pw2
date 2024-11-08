@@ -1,64 +1,69 @@
 # Plano de Teste
 
 ## 1. Ferramentas
-As seguintes ferramentas serão utilizadas para desenvolvimento e execução de testes e verificação de código:
+As seguintes ferramentas serão utilizadas para o desenvolvimento e execução dos testes e verificação de qualidade:
 
 - **JUnit**: Framework para criação de testes unitários em Java.
-- **Mockito**: Biblioteca para mocks em testes unitários.
+- **Mockito**: Biblioteca para criação de mocks e simulações em testes unitários.
+- **Rest Assured**: Biblioteca para testes de APIs RESTful em Java.
 - **SonarLint**: Ferramenta de análise estática para detectar problemas no código durante o desenvolvimento.
 - **SonarCloud**: Serviço para integração contínua e análise de qualidade do código.
 
 ## 2. Procedimentos
 
 ### 2.1 Commit
-- Realize commits frequentes e bem documentados.
+- Realize commits frequentes e bem documentados, descrevendo as alterações e testes adicionados.
 - Exemplo de comando: `git commit -m "Implementação de testes unitários para [funcionalidade]"`
 
 ### 2.2 Pull Request
-- Crie um Pull Request para cada conjunto de alterações que inclui testes e verificação estática.
-- Inclua uma descrição detalhada do que foi alterado e dos testes realizados.
-- Todos os PRs devem ser revisados e aprovados por pelo menos um membro da equipe antes de serem mesclados.
+- Crie um Pull Request para cada conjunto de alterações.
+- Inclua uma descrição detalhada do que foi alterado, testes adicionados e a verificação de qualidade feita com SonarLint.
+- Todos os PRs devem ser revisados por pelo menos um membro da equipe antes de serem mesclados.
 
 ### 2.3 Revisão de Código
-- Todos os PRs serão revisados para garantir que os padrões de código estejam sendo seguidos, com atenção especial aos problemas apontados pelo SonarLint e SonarCloud.
+- Os PRs devem passar pela revisão de código, verificando especialmente a cobertura de testes e conformidade com os padrões de qualidade.
+- Valide o uso do SonarLint e a análise do SonarCloud para manter a qualidade do código.
 
 ## 3. Requisitos, Restrições e Configurações para o Teste
 
 ### 3.1 Requisitos
-- **Cobertura de Código**: A cobertura de testes deve ser no mínimo de 80%.
-- **Análise Estática**: Todo código deve passar por verificação com SonarLint.
-- **Mocks**: Use Mockito para mockar serviços e dependências em testes unitários.
+- **Cobertura de Código**: A cobertura dos testes unitários e de integração deve ser de no mínimo 80%.
+- **Mocks**: Utilize Mockito para mockar dependências internas durante os testes unitários.
+- **APIs REST**: Utilize Rest Assured para validar as respostas e o comportamento das APIs RESTful da aplicação.
 
 ### 3.2 Restrições
-- As ferramentas de verificação estática devem estar configuradas no ambiente local para garantir conformidade antes do commit.
-- O SonarCloud será configurado como requisito para a integração contínua e análise de código.
+- Todos os testes devem ser executados em um ambiente de desenvolvimento ou teste, separado do ambiente de produção.
+- O SonarCloud deve ser configurado como requisito para integração contínua.
 
 ### 3.3 Configurações
-- **SonarLint**: Configure o SonarLint no editor de código para análise em tempo real.
-- **SonarCloud e GitHub Actions**: Configure o SonarCloud para análise de qualidade e GitHub Actions para execução dos testes e análise em todos os PRs.
+- **SonarLint**: Configure o SonarLint para análise em tempo real no ambiente de desenvolvimento.
+- **SonarCloud**: Configure o SonarCloud como parte do pipeline de CI/CD para análise de qualidade do código em cada PR e push.
 
 ## 4. Matriz de Funcionalidades versus Testes
 
-| Funcionalidade            | Teste Unitário | Teste de Integração | Mock com Mockito | Observações                         |
-|---------------------------|----------------|----------------------|------------------|-------------------------------------|
-| Autenticação               | Sim           | Sim                 | Sim              | Verificar login e autenticação      |
-| Cadastro de Usuários       | Sim           | Sim                 | Sim              | Mock de validação externa           |
-| Processamento de Dados     | Sim           | Não                 | Não              | Testes locais dos métodos           |
-| API (Componentes)          | Sim           | Sim                 | Sim              | Testes de componentes com APIs      |
+| Funcionalidade            | Teste Unitário | Teste de Integração (API) | Mock com Mockito | Observações                                  |
+|---------------------------|----------------|---------------------------|------------------|----------------------------------------------|
+| Autenticação               | Sim           | Sim                       | Sim              | Validar login e autenticação                 |
+| Cadastro de Usuários       | Sim           | Sim                       | Sim              | Teste de API para criação de usuários        |
+| Processamento de Dados     | Sim           | Não                       | Sim              | Testes locais dos métodos                    |
+| Operações de API REST      | Não           | Sim                       | Não              | Validar endpoints principais com Rest Assured|
 
 ## 5. Verificação Estática
-Implemente a verificação estática do código utilizando as seguintes ferramentas:
+Implemente a verificação estática do código utilizando:
 
-- **SonarLint**: Ferramenta local para verificar problemas de qualidade do código.
-- **SonarCloud**: Configure o SonarCloud para verificar a qualidade do código durante a CI/CD e gerar relatórios de análise.
+- **SonarLint**: Ferramenta local para verificar problemas de qualidade no código durante o desenvolvimento.
+- **SonarCloud**: Configure o SonarCloud no pipeline de CI/CD para verificar a qualidade e cobertura de código em todos os commits e PRs.
 
-## 6. Testes de Componentes e de Sistema
-- Para os testes de componentes, utilize o JUnit e Mockito para garantir o comportamento esperado dos módulos principais.
-- Para testes de sistema ou testes de API, utilize **Selenium** (ou **Cypress**) para simular interações com o sistema de maneira automatizada.
+## 6. Testes de API com Rest Assured
+Utilize o **Rest Assured** para implementar testes de API, verificando:
+
+- **Respostas de Status**: Assegure-se de que os endpoints estão respondendo com os status HTTP corretos (ex: 200, 404, 500).
+- **Validação de Conteúdo**: Verifique se o conteúdo das respostas está de acordo com os requisitos.
+- **Cabeçalhos e Autenticação**: Valide cabeçalhos essenciais e autenticação das requisições.
 
 ## 7. Integração Contínua
-- Configure o GitHub Actions para rodar os testes de unidade e verificação estática (Checkstyle, PMD e SonarCloud) em cada push e PR.
-- **SonarCloud**: Configure para integração automática no pipeline do GitHub Actions para garantir que todos os critérios de qualidade sejam atendidos antes da mesclagem.
+- Configure um ambiente de integração contínua (por exemplo, GitHub Actions) para rodar os testes e verificar a análise do SonarCloud em cada push e PR.
+- **SonarCloud**: Configure o SonarCloud para gerar relatórios de análise de qualidade e cobertura de código.
 
 ---
 
