@@ -3,11 +3,11 @@
 ## 1. Ferramentas
 As seguintes ferramentas serão utilizadas para o desenvolvimento e execução dos testes e verificação de qualidade:
 
-- **JUnit**: Framework para criação de testes unitários em Java.
-- **Mockito**: Biblioteca para criação de mocks e simulações em testes unitários.
-- **Rest Assured**: Biblioteca para testes de APIs RESTful em Java.
+- **JUnit**: Framework para criação de testes unitários em Java(https://junit.org/junit5/).
+- **Mockito**: Biblioteca para criação de mocks e simulações em testes unitários(https://site.mockito.org/).
+- **Rest Assured**: Biblioteca para testes de APIs RESTful em Java(https://rest-assured.io/).
 - **SonarLint**: Ferramenta de análise estática para detectar problemas no código durante o desenvolvimento.
-- **SonarCloud**: Serviço para integração contínua e análise de qualidade do código.
+- **SonarCloud**: Serviço para integração contínua e análise de qualidade do código(https://sonarcloud.io/login).
 
 ## 2. Procedimentos
 
