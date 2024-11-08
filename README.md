@@ -1,417 +1,64 @@
 # Plano de Teste
 
-**nome do sistema**
+## 1. Ferramentas
+As seguintes ferramentas serão utilizadas para desenvolvimento e execução de testes e verificação de código:
 
-*versão x.x*
+- **JUnit**: Framework para criação de testes unitários em Java.
+- **Mockito**: Biblioteca para mocks em testes unitários.
+- **SonarLint**: Ferramenta de análise estática para detectar problemas no código durante o desenvolvimento.
+- **SonarCloud**: Serviço para integração contínua e análise de qualidade do código.
 
-## Histórico das alterações
+## 2. Procedimentos
 
-   Data    | Versão |    Descrição   | Autor(a)
------------|--------|----------------|-----------------
-dd/mm/aaaa |  x.x   | Release incial | Danielle Farias
+### 2.1 Commit
+- Realize commits frequentes e bem documentados.
+- Exemplo de comando: `git commit -m "Implementação de testes unitários para [funcionalidade]"`
 
+### 2.2 Pull Request
+- Crie um Pull Request para cada conjunto de alterações que inclui testes e verificação estática.
+- Inclua uma descrição detalhada do que foi alterado e dos testes realizados.
+- Todos os PRs devem ser revisados e aprovados por pelo menos um membro da equipe antes de serem mesclados.
 
-## 1 - Introdução
+### 2.3 Revisão de Código
+- Todos os PRs serão revisados para garantir que os padrões de código estejam sendo seguidos, com atenção especial aos problemas apontados pelo SonarLint e SonarCloud.
 
-Este documento descreve os requisitos a testar, os  tipos de testes definidos para cada iteração, os recursos de hardware e software a serem empregados e o cronograma dos testes ao longo do projeto. As seções referentes aos requisitos, recursos e cronograma servem para permitir ao gerente do projeto acompanhar a evolução dos testes.
+## 3. Requisitos, Restrições e Configurações para o Teste
 
-Com esse documento, você deve:
-- Identificar informações de projeto existentes e os componentes de software que devem ser testados.
-- Listar os Requisitos a testar.
-- Recomendar e descrever as estratégias de teste a serem empregadas.
-- Identificar os recursos necessários e prover uma estimativa dos esforços de teste.
-- Listar os elementos resultantes do projeto de testes.
+### 3.1 Requisitos
+- **Cobertura de Código**: A cobertura de testes deve ser no mínimo de 80%.
+- **Análise Estática**: Todo código deve passar por verificação com SonarLint.
+- **Mocks**: Use Mockito para mockar serviços e dependências em testes unitários.
 
-Também é possível apresentar aqui o programa que será testado.
+### 3.2 Restrições
+- As ferramentas de verificação estática devem estar configuradas no ambiente local para garantir conformidade antes do commit.
+- O SonarCloud será configurado como requisito para a integração contínua e análise de código.
 
-## 2 - Requisitos a Testar
+### 3.3 Configurações
+- **SonarLint**: Configure o SonarLint no editor de código para análise em tempo real.
+- **SonarCloud e GitHub Actions**: Configure o SonarCloud para análise de qualidade e GitHub Actions para execução dos testes e análise em todos os PRs.
 
-Esta seção deve conter os casos de uso e requisitos não funcionais identificados como objetos dos testes ao longo do desenvolvimento do projeto.
-Como, em geral, os requisitos a testar são obtidos diretamente dos requisitos do sistema, esta seção é concebida como opcional. Assim sendo, sempre que novos requisitos a testar, que não constem como requisitos do sistema, forem identificados ou, simplesmente, por questões de organização e clareza, esta seção deve ser preenchida.
-Dependendo das informações disponíveis, essa seção pode começar a ser preenchida já nas primeiras iterações do ciclo de vida a partir do documento de requisitos.
+## 4. Matriz de Funcionalidades versus Testes
 
-Caso seja necessário, liste aqui os requisitos a testar subdivididos em casos de uso e requisitos não-funcionais.
+| Funcionalidade            | Teste Unitário | Teste de Integração | Mock com Mockito | Observações                         |
+|---------------------------|----------------|----------------------|------------------|-------------------------------------|
+| Autenticação               | Sim           | Sim                 | Sim              | Verificar login e autenticação      |
+| Cadastro de Usuários       | Sim           | Sim                 | Sim              | Mock de validação externa           |
+| Processamento de Dados     | Sim           | Não                 | Não              | Testes locais dos métodos           |
+| API (Componentes)          | Sim           | Sim                 | Sim              | Testes de componentes com APIs      |
 
-### Casos de uso:
+## 5. Verificação Estática
+Implemente a verificação estática do código utilizando as seguintes ferramentas:
 
-Identificador do caso de uso | Nome do caso de uso
------------------------------|---------------------
-id UC1                       |       nome UC1
-id UC2                       |       nome UC2
+- **SonarLint**: Ferramenta local para verificar problemas de qualidade do código.
+- **SonarCloud**: Configure o SonarCloud para verificar a qualidade do código durante a CI/CD e gerar relatórios de análise.
 
-### Requisitos não-funcionais:
+## 6. Testes de Componentes e de Sistema
+- Para os testes de componentes, utilize o JUnit e Mockito para garantir o comportamento esperado dos módulos principais.
+- Para testes de sistema ou testes de API, utilize **Selenium** (ou **Cypress**) para simular interações com o sistema de maneira automatizada.
 
-Identificador do requisito   | Nome do requisito
------------------------------|---------------------
-id req1                      |      nome req1
-id req2                      |      nome req2
+## 7. Integração Contínua
+- Configure o GitHub Actions para rodar os testes de unidade e verificação estática (Checkstyle, PMD e SonarCloud) em cada push e PR.
+- **SonarCloud**: Configure para integração automática no pipeline do GitHub Actions para garantir que todos os critérios de qualidade sejam atendidos antes da mesclagem.
 
+---
 
-## 3 - Tipos de teste
-
-Esta seção deve conter os tipos de testes escolhidos para cada iteração do projeto.
-Pode-se definir inicialmente apenas os tipos de testes que serão usadas na próxima iteração, mas é possível também já registrar eventuais tipos de teste que se espera utilizar nas demais iterações. 
-Com base no guia de testes, indique os tipos de testes que melhor se adéquam aos requisitos, tipo da aplicação e seus recursos disponíveis e, caso necessário complemente ou forneça mais detalhes da técnica e dos critérios de completude sugeridos no guia para cada tipo de teste indicado.
-
-- Teste de interface de usuário;
-- Teste de performance;
-- Teste de carga;
-- Teste de stress;
-- Teste de segurança e controle de acesso;
-- Teste de instalação;
-- Entre outros.
-
-### 3.1 - Métodos da Classe 
-
-Para teste de funcionalidade.
-Aqui deve-se verificar se cada classe retorna o esperado.
-Se possível usar teste automatizado.
-
-<br/>
-<table>
-    <tr>
-        <th>
-            Objetivo
-        </th>
-        <th colspan="4">
-            descreva aqui o objetivo
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Técnica:
-        </th>
-        <th colspan="2">
-            (x) manual
-        </th>
-        <th colspan="2">
-            (x) automática
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Estágio do teste
-        </th>
-        <th>
-            Integração ( )
-        </th>
-        <th>
-            Sistema ( )
-        </th>
-        <th>
-            Unidade (x)
-        </th>
-        <th>
-            Aceitação ( )
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Abordagem do teste
-        </th>
-        <th colspan="2">
-            Caixa branca (x)
-        </th>
-        <th colspan="2">
-            Caixa preta (x)
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Responsável(is)
-        </th>
-        <th colspan="4">
-            Programador(es) ou equipe de testes
-        </th>
-    </tr>
-</table>
-<br/>
-
-### 3.2 - Persistência de Dados
-
-Para teste de integridade de dados e do banco de dados.
-Aqui deve-se verificar se os dados não se perdem ao desligar o programa. Se o programa consegue se recuperar em caso de falha ou fechamento repentino.
-Se possível usar teste automatizado.
-
-<br/>
-<table>
-    <tr>
-        <th>
-            Objetivo
-        </th>
-        <th colspan="4">
-            Verificar se dados são mantidos após súbito desligamento do programa .
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Técnica:
-        </th>
-        <th colspan="2">
-            (x) manual
-        </th>
-        <th colspan="2">
-            (x) automática
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Estágio do teste
-        </th>
-        <th>
-            Integração ( )
-        </th>
-        <th>
-            Sistema (x)
-        </th>
-        <th>
-            Unidade ( )
-        </th>
-        <th>
-            Aceitação ( )
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Abordagem do teste
-        </th>
-        <th colspan="2">
-            Caixa branca ( )
-        </th>
-        <th colspan="2">
-            Caixa preta (x)
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Responsável(is)
-        </th>
-        <th colspan="4">
-            Programador(es) ou equipe de testes
-        </th>
-    </tr>
-</table>
-<br/>
-
-### 3.3 - Integração dos Componentes
-
-Para teste de funcionalidade.
-Aqui deve-se verificar se as classes e métodos conseguem fazer a integração entre elas para uma sequência de ações do programa.
-Se possível usar teste automatizado.
-
-<br/>
-<table>
-    <tr>
-        <th>
-            Objetivo
-        </th>
-        <th colspan="4">
-            descreva aqui o objetivo
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Técnica:
-        </th>
-        <th colspan="2">
-            (x) manual
-        </th>
-        <th colspan="2">
-            (x) automática
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Estágio do teste
-        </th>
-        <th>
-            Integração (x)
-        </th>
-        <th>
-            Sistema ( )
-        </th>
-        <th>
-            Unidade ( )
-        </th>
-        <th>
-            Aceitação ( )
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Abordagem do teste
-        </th>
-        <th colspan="2">
-            Caixa branca (x)
-        </th>
-        <th colspan="2">
-            Caixa preta (x)
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Responsável(is)
-        </th>
-        <th colspan="4">
-            Programador(es) ou equipe de testes
-        </th>
-    </tr>
-</table>
-<br/>
-
-### 3.4 - Tempo de Resposta
-
-Para teste de funcionalidade.
-Aqui deve-se verificar se o tempo de respostas das ações do programa são consideradas aceitáveis.
-Se possível usar teste automatizado.
-
-<br/>
-<table>
-    <tr>
-        <th>
-            Objetivo
-        </th>
-        <th colspan="4">
-            descreva aqui o objetivo
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Técnica:
-        </th>
-        <th colspan="2">
-            ( ) manual
-        </th>
-        <th colspan="2">
-            ( ) automática
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Estágio do teste
-        </th>
-        <th>
-            Integração ( )
-        </th>
-        <th>
-            Sistema ( )
-        </th>
-        <th>
-            Unidade ( )
-        </th>
-        <th>
-            Aceitação ( )
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Abordagem do teste
-        </th>
-        <th colspan="2">
-            Caixa branca ( )
-        </th>
-        <th colspan="2">
-            Caixa preta ( )
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Responsável(is)
-        </th>
-        <th colspan="4">
-            Programador(es) ou equipe de testes
-        </th>
-    </tr>
-</table>
-<br/>
-
-### 3.5 - Animação
-
-Para teste de funcionalidade (para games, principalmente, mas não somente).
-Aqui deve-se verificar se as animações existentes no programa são disparadas quando devem e se seguem uma sequência lógica.
-Se possível usar teste automatizado.
-
-<br/>
-<table>
-    <tr>
-        <th>
-            Objetivo
-        </th>
-        <th colspan="4">
-            descreva aqui o objetivo
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Técnica:
-        </th>
-        <th colspan="2">
-            ( ) manual
-        </th>
-        <th colspan="2">
-            ( ) automática
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Estágio do teste
-        </th>
-        <th>
-            Integração ( )
-        </th>
-        <th>
-            Sistema ( )
-        </th>
-        <th>
-            Unidade ( )
-        </th>
-        <th>
-            Aceitação ( )
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Abordagem do teste
-        </th>
-        <th colspan="2">
-            Caixa branca ( )
-        </th>
-        <th colspan="2">
-            Caixa preta ( )
-        </th>
-    </tr>
-    <tr>
-        <th>
-            Responsável(is)
-        </th>
-        <th colspan="4">
-            Programador(es) ou equipe de testes
-        </th>
-    </tr>
-</table>
-<br/>
-
-### 3.6 - Efeitos Sonoros
-
-
-## 4 - Recursos
-
-Esta seção deve descrever os recursos humanos, de ambiente de teste (hardware e software) e de ferramentas de automatização de testes necessários para execução dos testes que devem ser descritos nas subseções que seguem.
-
-### 4.1 - Ambiente de teste - Software e Hardware
-
-Descreva aqui o hardware e sua configuração, e o software. Por exemplo, o sistema operacional, browsers, servidor web, etc.
-### 4.2 - Ferramenta de teste
-
-Descreva aqui as ferramentas específicas de teste usadas no projeto.
-
-
-## 5 - Cronograma
-
-Tipo de teste      | Duração | data de início | data de término
--------------------|---------|----------------|-----------------
-planejar teste     |         | dd/mm/aaaa     | dd/mm/aaaa
-projetar teste     |         | dd/mm/aaaa     | dd/mm/aaaa
-implementar teste  |         | dd/mm/aaaa     | dd/mm/aaaa
-executar teste     |         | dd/mm/aaaa     | dd/mm/aaaa
-avaliar teste      |         | dd/mm/aaaa     | dd/mm/aaaa
