@@ -149,6 +149,46 @@ Configure um ambiente de integração contínua (por exemplo, GitHub Actions) pa
 - **Entradas**: ID do livro.
 - **Resultado Esperado**: O livro deve ser excluído com sucesso sem lançar exceções.
 
+- **Método**: `shouldReturn200WhenSavingLivro`
+- **Descrição**: Verifica se um novo livro pode ser salvo corretamente no sistema.
+- **Entradas**: Objeto JSON representando o livro (título, autor, data de lançamento).
+- **Resultado Esperado**: Status code 200 e o título do livro salvo deve ser "Livro Teste".
+
+### 8.11 Teste de Busca de Todos os Livros
+
+- **Método**: `shouldReturn200WhenGettingAllBooks`
+- **Descrição**: Verifica se todos os livros podem ser buscados corretamente.
+- **Entradas**: Nenhuma.
+- **Resultado Esperado**: Status code 200 e a lista de livros deve conter pelo menos um item.
+
+### 8.12 Teste de Busca de Livro por ID
+
+- **Método**: `shouldReturn200WhenGettingBookById`
+- **Descrição**: Verifica se um livro específico pode ser buscado pelo ID.
+- **Entradas**: ID do livro.
+- **Resultado Esperado**: Status code 200 e o ID do livro deve corresponder ao esperado.
+
+### 8.13 Teste de Edição de Livro
+
+- **Método**: `shouldReturn200WhenUpdatingBook`
+- **Descrição**: Verifica se um livro existente pode ser editado corretamente.
+- **Entradas**: ID do livro e objeto JSON com os novos dados do livro (título, autor, data de lançamento).
+- **Resultado Esperado**: Status code 200 e o título do livro deve ser atualizado para "Livro Atualizado".
+
+### 8.14 Teste de Exclusão de Livro
+
+- **Método**: `shouldReturn204WhenDeletingBook`
+- **Descrição**: Verifica se um livro pode ser excluído do sistema corretamente.
+- **Entradas**: ID do livro.
+- **Resultado Esperado**: Status code 204, indicando que o livro foi excluído com sucesso.
+
+### 8.15 Teste de Autorização Inválida
+
+- **Método**: `shouldReturn401WhenUnauthorized`
+- **Descrição**: Verifica se a tentativa de salvar um livro sem um token válido retorna erro de autorização.
+- **Entradas**: Objeto JSON representando o livro (título, autor, data de lançamento) sem o cabeçalho de autorização.
+- **Resultado Esperado**: Status code 401, indicando que a requisição não foi autorizada.
+- 
 ## Você fez todos os testes???
 
 ![Descrição do GIF](https://media.giphy.com/media/ynRrAHj5SWAu8RA002/giphy.gif)
