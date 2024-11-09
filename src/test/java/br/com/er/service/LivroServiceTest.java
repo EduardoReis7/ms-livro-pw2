@@ -9,6 +9,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.lenient;
 
 import java.util.List;
 
@@ -28,34 +29,34 @@ import io.quarkus.hibernate.orm.panache.PanacheQuery;
 class LivroServiceTest {
 
     @InjectMocks
-    LivroService service;
+    private LivroService livroService;
 
     @Mock
-    LivroRepository repository;
-    
+    private LivroRepository livroRepository;
+
+    @Mock
+    private PanacheQuery<Livro> queryMock;
+
     @Test
     void shouldReturnTrueWhenANewLivroIsCreated() {
-
         Livro expected = TestUtils.createLivroEntity();
 
-        when(repository.save(any(Livro.class))).thenReturn(expected);
+        when(livroRepository.save(any(Livro.class))).thenReturn(expected);
 
-        Livro livro = service.salvar(expected);
+        Livro livro = livroService.salvar(expected);
 
         assertNotNull(livro);
         assertEquals(expected, livro);
-    } 
+    }
 
     @Test
     void shouldReturnTrueWhenAListOfLivroIsSearched() {
-
         List<Livro> expected = List.of(TestUtils.createLivroEntity());
 
-        PanacheQuery<Livro> mockQuery = mock(PanacheQuery.class);
-        when(mockQuery.list()).thenReturn(expected);
-        when(repository.findAll()).thenReturn(mockQuery);
+        when(queryMock.list()).thenReturn(expected);
+        when(livroRepository.findAll()).thenReturn(queryMock);
 
-        List<Livro> livros = service.buscarTodos();
+        List<Livro> livros = livroService.buscarTodos();
 
         assertNotNull(livros);
         assertEquals(expected, livros);
@@ -63,12 +64,11 @@ class LivroServiceTest {
 
     @Test
     void shouldReturnTrueWhenALivroIsSearched() {
-
         Livro expected = TestUtils.createLivroEntity();
 
-        when(repository.findById(anyLong())).thenReturn(expected);
+        when(livroRepository.findById(anyLong())).thenReturn(expected);
 
-        Livro livro = service.buscar(1L);
+        Livro livro = livroService.buscar(1L);
 
         assertNotNull(livro);
         assertEquals(expected, livro);
@@ -76,15 +76,14 @@ class LivroServiceTest {
 
     @Test
     void shouldReturnTrueWhenALivroIsEdited() {
-
         Livro original = TestUtils.createLivroEntity();
         Livro updatedLivro = TestUtils.createLivroEntity();
-
         updatedLivro.setAutor("New author");
 
-        when(repository.findById(anyLong())).thenReturn(original);
+        lenient().when(livroRepository.findById(anyLong())).thenReturn(original);
+        when(livroRepository.editar(anyLong(), any(Livro.class))).thenReturn(updatedLivro);
 
-        Livro newLivro = service.editar(1L, updatedLivro);
+        Livro newLivro = livroService.editar(1L, updatedLivro);
 
         assertNotNull(newLivro);
         assertEquals(updatedLivro, newLivro);
@@ -92,11 +91,75 @@ class LivroServiceTest {
 
     @Test
     void shouldReturnTrueWhenALivroIsDeleted() {
+        doNothing().when(livroRepository).excluir(anyLong());
+        when(livroRepository.findById(anyLong())).thenThrow(NaoEncontradoException.class);
 
-        doNothing().when(repository).excluir(anyLong());
+        livroService.excluir(1L);
 
-        service.excluir(1L);
+        assertThrows(NaoEncontradoException.class, () -> livroService.buscar(1L));
+    }
 
-        assertThrows(NaoEncontradoException.class, () -> this.service.buscar(1L));
+    @Test
+    void shouldSaveBook() {
+        Livro livro = TestUtils.createLivroEntity();
+
+        when(livroRepository.save(any(Livro.class))).thenReturn(livro);
+
+        Livro resultado = livroService.salvar(livro);
+        assertNotNull(resultado);
+        assertEquals(1L, resultado.getId());
+        assertEquals("Titulo", resultado.getTitulo());
+    }
+
+    @Test
+    void shouldFindAllBooks() {
+        Livro livro1 = TestUtils.createLivroEntity();
+        livro1.setTitulo("Titulo Teste 1");
+
+        Livro livro2 = TestUtils.createLivroEntity();
+        livro2.setId(2L);
+        livro2.setTitulo("Titulo Teste 2");
+
+        when(queryMock.list()).thenReturn(List.of(livro1, livro2));
+        when(livroRepository.findAll()).thenReturn(queryMock);
+
+        List<Livro> resultado = livroService.buscarTodos();
+        assertNotNull(resultado);
+        assertEquals(2, resultado.size());
+        assertEquals("Titulo Teste 1", resultado.get(0).getTitulo());
+        assertEquals("Titulo Teste 2", resultado.get(1).getTitulo());
+    }
+
+    @Test
+    void shouldFindBookById() {
+        Livro livro = TestUtils.createLivroEntity();
+
+        when(livroRepository.findById(anyLong())).thenReturn(livro);
+
+        Livro resultado = livroService.buscar(1L);
+        assertNotNull(resultado);
+        assertEquals(1L, resultado.getId());
+        assertEquals("Titulo", resultado.getTitulo());
+    }
+
+    @Test
+    void shouldEditBook() {
+        Livro livroExistente = TestUtils.createLivroEntity();
+        Livro livroNovo = TestUtils.createLivroEntity();
+        livroNovo.setTitulo("Titulo Novo");
+
+        when(livroRepository.editar(anyLong(), any(Livro.class))).thenReturn(livroNovo);
+
+        Livro resultado = livroService.editar(1L, livroNovo);
+        assertNotNull(resultado);
+        assertEquals(1L, resultado.getId());
+        assertEquals("Titulo Novo", resultado.getTitulo());
+    }
+
+    @Test
+    void shouldDeleteBook() {
+        doNothing().when(livroRepository).excluir(anyLong());
+
+        assertDoesNotThrow(() -> livroService.excluir(1L));
     }
 }
