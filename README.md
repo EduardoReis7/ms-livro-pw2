@@ -49,12 +49,12 @@ Realize commits frequentes e bem documentados, descrevendo as alterações e tes
 
 ## 4. Matriz de Funcionalidades versus Testes
 
-| Funcionalidade      | Teste Unitário | Teste de Integração (API) | Mock com Mockito |
+| Funcionalidade      | Teste Unitário | Teste de Integração (API)  | Mock com Mockito |
 |---------------------|----------------|----------------------------|-------------------|
-| Cadastro de livros  | Sim            | Não                        | Não               |
-| Busca de livros     | Sim            | Não                        | Não               |
-| Exclusão de livros  | Não            | Não                        | Não               |
-| Edição de livros    | Não            | Não                        | Não               |
+| Cadastro de livros  | Sim            | Sim                        | Sim               |
+| Busca de livros     | Sim            | Não                        | Sim               |
+| Exclusão de livros  | Sim            | Não                        | Sim               |
+| Edição de livros    | Sim            | Não                        | Sim               |
 
 ## 5. Verificação Estática
 
