@@ -77,112 +77,112 @@ Configure um ambiente de integração contínua (por exemplo, GitHub Actions) pa
 
 - **SonarCloud**: Configure o SonarCloud para gerar relatórios de análise de qualidade e cobertura de código.
 
-## 8. Casos de Teste
+## 8. Casos de Teste 
 
-### 8.1 Teste de Criação de Livro
+### 8.1 Teste de Criação de Livro [UNITÁRIO]
 
 - **Método**: `shouldReturnTrueWhenANewLivroIsCreated`
 - **Descrição**: Verifica se um novo livro pode ser salvo corretamente no repositório.
 - **Entradas**: Objeto Livro criado através do `TestUtils.createLivroEntity()`.
 - **Resultado Esperado**: O livro deve ser salvo com sucesso, e o objeto retornado deve ser equivalente ao esperado.
 
-### 8.2 Teste de Busca de Todos os Livros
+### 8.2 Teste de Busca de Todos os Livros [UNITÁRIO]
 
 - **Método**: `shouldReturnTrueWhenAListOfLivroIsSearched`
 - **Descrição**: Verifica se todos os livros podem ser buscados corretamente.
 - **Entradas**: Nenhuma.
 - **Resultado Esperado**: A lista retornada deve conter todos os livros salvos, com os valores corretos.
 
-### 8.3 Teste de Busca de Livro por ID
+### 8.3 Teste de Busca de Livro por ID [UNITÁRIO]
 
 - **Método**: `shouldReturnTrueWhenALivroIsSearched`
 - **Descrição**: Verifica se um livro específico pode ser buscado pelo ID.
 - **Entradas**: ID do livro.
 - **Resultado Esperado**: O livro correspondente ao ID deve ser retornado corretamente.
 
-### 8.4 Teste de Edição de Livro
+### 8.4 Teste de Edição de Livro [UNITÁRIO]
 
 - **Método**: `shouldReturnTrueWhenALivroIsEdited`
 - **Descrição**: Verifica se um livro existente pode ser editado corretamente.
 - **Entradas**: Objeto Livro com alterações.
 - **Resultado Esperado**: O livro deve ser editado com sucesso e refletir as alterações feitas.
 
-### 8.5 Teste de Exclusão de Livro
+### 8.5 Teste de Exclusão de Livro [UNITÁRIO]
 
 - **Método**: `shouldReturnTrueWhenALivroIsDeleted`
 - **Descrição**: Verifica se um livro pode ser excluído e não está mais disponível para busca.
 - **Entradas**: ID do livro.
 - **Resultado Esperado**: O livro deve ser excluído com sucesso, e uma tentativa de buscá-lo deve lançar a exceção `NaoEncontradoException`.
 
-### 8.6 Teste de Salvamento de Livro
+### 8.6 Teste de Salvamento de Livro [UNITÁRIO]
 
 - **Método**: `shouldSaveBook`
 - **Descrição**: Verifica se um livro pode ser salvo no repositório corretamente.
 - **Entradas**: Objeto Livro criado através do `TestUtils.createLivroEntity()`.
 - **Resultado Esperado**: O livro deve ser salvo com sucesso, e o ID e título devem corresponder ao esperado.
 
-### 8.7 Teste de Busca de Todos os Livros com Títulos Diferentes
+### 8.7 Teste de Busca de Todos os Livros com Títulos Diferentes [UNITÁRIO]
 
 - **Método**: `shouldFindAllBooks`
 - **Descrição**: Verifica se todos os livros com títulos diferentes são buscados corretamente.
 - **Entradas**: Nenhuma.
 - **Resultado Esperado**: A lista retornada deve conter todos os livros salvos, com os valores corretos de ID e título.
 
-### 8.8 Teste de Busca de Livro Específico por ID
+### 8.8 Teste de Busca de Livro Específico por ID [UNITÁRIO]
 
 - **Método**: `shouldFindBookById`
 - **Descrição**: Verifica se um livro específico pode ser buscado pelo ID corretamente.
 - **Entradas**: ID do livro.
 - **Resultado Esperado**: O livro correspondente ao ID deve ser retornado corretamente, com os valores esperados.
 
-### 8.9 Teste de Edição de Livro Específico
+### 8.9 Teste de Edição de Livro Específico [UNITÁRIO]
 
 - **Método**: `shouldEditBook`
 - **Descrição**: Verifica se um livro existente pode ser editado com um novo título.
 - **Entradas**: Objeto Livro com alterações no título.
 - **Resultado Esperado**: O livro deve ser editado com sucesso, refletindo o novo título.
 
-### 8.10 Teste de Exclusão de Livro
+### 8.10 Teste de Exclusão de Livro [UNITÁRIO]
 
 - **Método**: `shouldDeleteBook`
 - **Descrição**: Verifica se um livro pode ser excluído do repositório corretamente.
 - **Entradas**: ID do livro.
 - **Resultado Esperado**: O livro deve ser excluído com sucesso sem lançar exceções.
 
-- **Método**: `shouldReturn200WhenSavingLivro`
+- **Método**: `shouldReturn200WhenSavingLivro` [INTEGRAÇÃO]
 - **Descrição**: Verifica se um novo livro pode ser salvo corretamente no sistema.
 - **Entradas**: Objeto JSON representando o livro (título, autor, data de lançamento).
 - **Resultado Esperado**: Status code 200 e o título do livro salvo deve ser "Livro Teste".
 
-### 8.11 Teste de Busca de Todos os Livros
+### 8.11 Teste de Busca de Todos os Livros [INTEGRAÇÃO]
 
 - **Método**: `shouldReturn200WhenGettingAllBooks`
 - **Descrição**: Verifica se todos os livros podem ser buscados corretamente.
 - **Entradas**: Nenhuma.
 - **Resultado Esperado**: Status code 200 e a lista de livros deve conter pelo menos um item.
 
-### 8.12 Teste de Busca de Livro por ID
+### 8.12 Teste de Busca de Livro por ID [INTEGRAÇÃO]
 
 - **Método**: `shouldReturn200WhenGettingBookById`
 - **Descrição**: Verifica se um livro específico pode ser buscado pelo ID.
 - **Entradas**: ID do livro.
 - **Resultado Esperado**: Status code 200 e o ID do livro deve corresponder ao esperado.
 
-### 8.13 Teste de Edição de Livro
+### 8.13 Teste de Edição de Livro [INTEGRAÇÃO]
 
 - **Método**: `shouldReturn200WhenUpdatingBook`
 - **Descrição**: Verifica se um livro existente pode ser editado corretamente.
 - **Entradas**: ID do livro e objeto JSON com os novos dados do livro (título, autor, data de lançamento).
 - **Resultado Esperado**: Status code 200 e o título do livro deve ser atualizado para "Livro Atualizado".
 
-### 8.14 Teste de Exclusão de Livro
+### 8.14 Teste de Exclusão de Livro [INTEGRAÇÃO]
 
 - **Método**: `shouldReturn204WhenDeletingBook`
 - **Descrição**: Verifica se um livro pode ser excluído do sistema corretamente.
 - **Entradas**: ID do livro.
 - **Resultado Esperado**: Status code 204, indicando que o livro foi excluído com sucesso.
 
-### 8.15 Teste de Autorização Inválida
+### 8.15 Teste de Autorização Inválida [INTEGRAÇÃO]
 
 - **Método**: `shouldReturn401WhenUnauthorized`
 - **Descrição**: Verifica se a tentativa de salvar um livro sem um token válido retorna erro de autorização.
