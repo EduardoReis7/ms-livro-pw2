@@ -52,9 +52,9 @@ Realize commits frequentes e bem documentados, descrevendo as alterações e tes
 | Funcionalidade      | Teste Unitário | Teste de Integração (API)  | Mock com Mockito |
 |---------------------|----------------|----------------------------|-------------------|
 | Cadastro de livros  | Sim            | Sim                        | Sim               |
-| Busca de livros     | Sim            | Não                        | Sim               |
-| Exclusão de livros  | Sim            | Não                        | Sim               |
-| Edição de livros    | Sim            | Não                        | Sim               |
+| Busca de livros     | Sim            | Sim                        | Sim               |
+| Exclusão de livros  | Sim            | Sim                        | Sim               |
+| Edição de livros    | Sim            | Sim                        | Sim               |
 
 ## 5. Verificação Estática
 
